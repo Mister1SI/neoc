@@ -16,7 +16,7 @@ int b(char* filename) {
 
 	// Get file length
 	struct stat st;
-	fstat(&st);
+	fstat(fd, &st);
 	long filelen = st.st_size;
 	
 	// Call mmap
