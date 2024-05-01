@@ -1,5 +1,5 @@
 
-int preprocessor() {
+int preprocessor(char* filedata) {
 
 	
 

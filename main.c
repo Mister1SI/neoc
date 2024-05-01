@@ -12,7 +12,10 @@ int main(int argc, char** argv) {
 	}
 	
 	for (int i=1; i<argc; i++) {
-		b(argv[i]);
+		if(!b(argv[i])) {
+			puts("Compilation failed.");
+			return -1;
+		}
 	}
 
 	return 0;
