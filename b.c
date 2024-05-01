@@ -3,6 +3,7 @@ extern int preprocessor(char*);
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <errno.h>
 
 int b(char* filename) {
 
@@ -20,8 +21,22 @@ int b(char* filename) {
 	
 	// Call mmap
 	char* filedata = mmap(0, filelen, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-	if (filedata = (void*)-1) {
+	if (filedata == (void*)-1) {
 		puts("Failed to map memory.");
+		switch (errno) {
+			case EACCES:
+				puts("EACCES");
+				break;
+			case EBADF:
+				puts("Bad FD");
+				break;
+			case EINVAL:
+				puts("EINVAL");
+				break;
+			default:
+				puts("Other error");
+				break;
+		}
 		return 0;
 	}
 	close(fd);
