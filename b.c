@@ -1,4 +1,4 @@
-extern int preprocessor(char*);
+extern int preprocessor(char*, long);
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -42,7 +42,7 @@ int b(char* filename) {
 	close(fd);
 	
 	// Invoke the preprocessor
-	if(!preprocessor(filedata)) {
+	if(!preprocessor(filedata, filelen)) {
 		puts("Preprocessor error. Terminating.");
 		return 0;
 	}
