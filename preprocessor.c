@@ -8,6 +8,7 @@ static void reset();
 
 int com_sl;
 int com_ml;
+int rep_char = 0;	// The character to replace comments with
 
 int preprocessor(char* filedata, long filelen) {
 
@@ -29,26 +30,26 @@ int preprocessor(char* filedata, long filelen) {
 		if(!com_sl) {
 			if (*cb == '/' && *(cb+1) == '/') {
 					com_sl = 1;
-					*cb = 0;
+					*cb = rep_char;
 			}
 		} else {
-			*cb = 0;
+			*cb = rep_char;
 		}
 
 		// Multi-line comments
 		if(!com_ml) {
 			if (*cb == '/' && *(cb+1) == '*') {
 				com_ml = 1;
-				*cb = 0;
+				*cb = rep_char;
 			}
 		} else {
 			// First check for the end of the multiline comment
 			if (*cb == '*' && *(cb+1) == '/') {
 				com_ml = 0;
-				*cb = 0;
-				*(cb+1) = 0;
+				*cb = rep_char;
+				*(cb+1) = rep_char;
 			} else {
-				*cb = 0;
+				*cb = rep_char;
 			}
 		}
 
