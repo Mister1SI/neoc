@@ -2,13 +2,13 @@
 // This file contains the preprocessor
 // It currently REMOVES COMMENTS
 // TODO: FILE INCLUSION, MACRO EXPANSION
-//
+// 
 
 static void reset();
 
-int com_sl;
-int com_ml;
-int rep_char = 0;	// The character to replace comments with
+static int com_sl;
+static int com_ml;
+static int rep_char = 0;	// The character to replace comments with
 
 int preprocessor(char* filedata, long filelen) {
 
@@ -22,8 +22,16 @@ int preprocessor(char* filedata, long filelen) {
 
 	// Check each byte
 	for (long i=0; i<filelen; i++) {			
+		
+		int _i = i;
+		_i++;
+		// Check if file ends in '/'
+		if (*cb == '/' && _i == filelen) {
+			// File ends in '/', jump to next iteration
+			continue;
+		}
 
-		if (! com_ml && com_sl && *cb == '\n')
+		if (!com_ml && com_sl && *cb == '\n')
 			reset();
 
 		// Single-line comments
