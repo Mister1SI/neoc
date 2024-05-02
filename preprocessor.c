@@ -12,9 +12,6 @@ static int rep_char = 0;	// The character to replace comments with
 
 int preprocessor(char* filedata, long filelen) {
 
-
-	write(1, filedata, filelen);
-
 	com_sl = 0;
 	com_ml = 0;
 
