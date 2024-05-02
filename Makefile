@@ -4,6 +4,11 @@ exe=x
 
 all: run
 
+test: $(exe)
+	@rm test
+	@cp test.txt test
+	@./$(exe) test
+
 run: $(exe)
 	@./$(exe)
 
