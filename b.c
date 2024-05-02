@@ -1,3 +1,9 @@
+// This file contains the compiler function that is invoked for every file
+// It invokes the preprocessor
+// TODO: implement LEXING, PARSING, SEMANTIC ANALYSIS, OPTIMIZATION, GENERATION
+//
+
+
 extern int preprocessor(char*, long);
 
 #include <stdio.h>

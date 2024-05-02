@@ -1,3 +1,8 @@
+// preprocessor.c
+// This file contains the preprocessor
+// It currently REMOVES COMMENTS
+// TODO: FILE INCLUSION, MACRO EXPANSION
+//
 
 static void reset();
 

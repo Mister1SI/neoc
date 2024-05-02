@@ -1,3 +1,9 @@
+// This file contains the entry point and help function
+// It reads the arguments and invokes the compiler for each one
+// TODO: invoke linkerwith resultant object files
+//
+
+
 #include <stdio.h>
 
 extern int b(char*);
