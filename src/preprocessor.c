@@ -15,12 +15,13 @@ static int rep_char = 0;	// The character to replace comments with
 #include <stdio.h>
 #include <ANSI-colors.h>
 #include <unistd.h>
-
+#include <error.h>
 
 int preprocessor(char* filedata, long filelen, char* output_filename) {
 
 	if (access(output_filename, F_OK) == -1) {
-		puts("Preprocessor: " ANSI_RED "Error: " ANSI_RESET "Output file already exists.");
+		puts("Preprocessor: " ANSI_BRED "Error: " ANSI_RESET "Output file already exists.");
+		error("Preprocessor: ", "Output file already exists.");
 		return 0;
 	}
 	FILE* file = fopen(output_filename, "w");
