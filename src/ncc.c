@@ -12,13 +12,14 @@ extern int preprocessor(char*, long, char*);
 #include <sys/mman.h>
 #include <errno.h>
 #include <string.h>
+#include <error.h>
 
 int ncc(char* filename) {
 
 	// Open the file
 	int fd = open(filename, O_RDWR);
 	if (fd == -1) {
-		puts("Failed to open file.");
+		ncc_error("ncc: ", "Failed to open file.");
 		return 0;
 	}
 
@@ -37,7 +38,7 @@ int ncc(char* filename) {
 	// Call mmap
 	char* filedata = mmap(0, filelen, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	if (filedata == (void*)-1) {
-		puts("Failed to map memory.");
+		ncc_error("ncc: ", "Failed to map memory.");
 		switch (errno) {
 			case EACCES:
 				puts("EACCES");

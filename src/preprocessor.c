@@ -20,13 +20,12 @@ static int rep_char = 0;	// The character to replace comments with
 int preprocessor(char* filedata, long filelen, char* output_filename) {
 
 	if (access(output_filename, F_OK) == -1) {
-		puts("Preprocessor: " ANSI_BRED "Error: " ANSI_RESET "Output file already exists.");
-		error("Preprocessor: ", "Output file already exists.");
+		ncc_error("Preprocessor: ", "Output file already exists.");
 		return 0;
 	}
 	FILE* file = fopen(output_filename, "w");
 	if (!file) {
-		puts("Preprocessor: Failed to open output file.");
+		ncc_error("Preprocessor: ", "Failed to open file.");
 		return 0;
 	}
 
