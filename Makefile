@@ -14,5 +14,5 @@ run: $(EXE)
 	@./$(EXE)
 
 $(EXE): $(SRC)
-	@gcc -o $(EXE) $(SRC)
+	@gcc $(CFLAGS) -o $(EXE) $(SRC)
 

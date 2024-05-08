@@ -4,24 +4,7 @@
 //
 
 #include <stdlib.h>
-
-// Types of tokens understood
-typedef enum {
-	SYMBOL,
-	NUMBER,
-	OPERATOR,
-	LPAREN,
-	RPAREN,
-	LCB,
-	RCB,
-	END_OF_INPUT
-} TokenType;
-
-// Representation of a token
-typedef struct {
-	TokenType type;
-	char* value;
-} Token;
+#include <lexer.h>
 
 Token* next_token(char* input, int* pos) {
 	char cb = input[*pos];
