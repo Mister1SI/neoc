@@ -1,5 +1,5 @@
 
-src=$(wildcard *.c)
+src=$(wildcard src/*.c)
 exe=x
 
 all: run

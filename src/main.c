@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 
-extern int b(char*);
+extern int ncc(char*);
 
 void help();
 
@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 	}
 	
 	for (int i=1; i<argc; i++) {
-		if(!b(argv[i])) {
+		if(!ncc(argv[i])) {
 			puts("Compilation failed.");
 			return -1;
 		}

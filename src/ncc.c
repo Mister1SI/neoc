@@ -11,8 +11,9 @@ extern int preprocessor(char*, long, char*);
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <errno.h>
+#include <string.h>
 
-int b(char* filename) {
+int ncc(char* filename) {
 
 	// Open the file
 	int fd = open(filename, O_RDWR);
