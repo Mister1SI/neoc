@@ -4,9 +4,10 @@
 //
 
 
-extern int preprocessor(char*, long);
+extern int preprocessor(char*, long, char*);
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <errno.h>
@@ -19,6 +20,13 @@ int b(char* filename) {
 		puts("Failed to open file.");
 		return 0;
 	}
+
+	// Create the .pp preprocessed file's name
+	int filename_len = strlen(filename);
+	char* output_filename = malloc(filename_len);
+	memcpy(output_filename, filename, filename_len);
+	output_filename[filename_len-1] = 'p';
+	output_filename[filename_len-2] = 'p';
 
 	// Get file length
 	struct stat st;
@@ -48,7 +56,7 @@ int b(char* filename) {
 	close(fd);
 	
 	// Invoke the preprocessor
-	if(!preprocessor(filedata, filelen)) {
+	if(!preprocessor(filedata, filelen, output_filename)) {
 		puts("Preprocessor error. Terminating.");
 		return 0;
 	}

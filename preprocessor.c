@@ -10,7 +10,26 @@ static int com_sl;
 static int com_ml;
 static int rep_char = 0;	// The character to replace comments with
 
-int preprocessor(char* filedata, long filelen) {
+
+
+#include <stdio.h>
+#include <ANSI-colors.h>
+#include <unistd.h>
+
+
+int preprocessor(char* filedata, long filelen, char* output_filename) {
+
+	if (access(output_filename, F_OK) == -1) {
+		puts("Preprocessor: " ANSI_RED "Error: " ANSI_RESET "Output file already exists.");
+		return 0;
+	}
+	FILE* file = fopen(output_filename, "w");
+	if (!file) {
+		puts("Preprocessor: Failed to open output file.");
+		return 0;
+	}
+
+
 
 	com_sl = 0;
 	com_ml = 0;
@@ -62,6 +81,7 @@ int preprocessor(char* filedata, long filelen) {
 		cb++;
 	}
 
+	fclose(file);
 	return 1;
 }
 
