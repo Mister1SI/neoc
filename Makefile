@@ -1,17 +1,18 @@
 
-src=$(wildcard src/*.c)
-exe=x
+SRC=$(wildcard src/*.c)
+EXE=x
+CFLAGS="-Ih"
 
 all: run
 
-test: $(exe)
+test: $(EXE)
 	@rm test
 	@cp test.txt test
-	@./$(exe) test
+	@./$(EXE) test
 
-run: $(exe)
-	@./$(exe)
+run: $(EXE)
+	@./$(EXE)
 
-$(exe): $(src)
-	@gcc -o $(exe) $(src)
+$(EXE): $(SRC)
+	@gcc -o $(EXE) $(SRC)
 

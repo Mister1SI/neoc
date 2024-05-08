@@ -5,12 +5,14 @@
 
 
 #include <stdio.h>
+#include <a.h>
 
 extern int ncc(char*);
 
 void help();
 
 int main(int argc, char** argv) {
+	a();
 
 	if (argc == 1) {
 		help();
