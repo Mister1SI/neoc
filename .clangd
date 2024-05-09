@@ -1,0 +1,3 @@
+Indent: 4
+CompileFlags:
+  Add: [-I/home/cnickel/personal/neoc/h/]
