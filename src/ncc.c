@@ -23,7 +23,7 @@ int ncc(char* filename) {
 		return 0;
 	}
 
-	// Create the .pp preprocessed file's name
+	// Create the .pof (preprocessor output file) preprocessed file's name
 	int filename_len = strlen(filename);
 	int ofilename_len = filename_len;
 	int last_period_index;
@@ -33,14 +33,16 @@ int ncc(char* filename) {
 		char cb = filename[i];
 		if (cb == '.') {
 			last_period_index = i;
-			goto last_period_index_found;
+			break;
 		}
 	}
-	last_period_index_found:
 	int ext_len = filename_len - last_period_index;
-	char* output_filename = malloc(filename_len);
+	int extra_bytes = 0;
+	if (ext_len < 3)
+		extra_bytes = 3 - ext_len;
+	char* output_filename = malloc(filename_len+extra_bytes);
 	memcpy(output_filename, filename, filename_len);
-	
+	memcpy(output_filename+last_period_index+1, "pof", 3);
 
 	// Get file length
 	struct stat st;

@@ -19,7 +19,7 @@ static int rep_char = 0;	// The character to replace comments with
 
 int preprocessor(char* filedata, long filelen, char* output_filename) {
 
-	if (access(output_filename, F_OK) == -1) {
+	if (access(output_filename, F_OK) == 0) {
 		ncc_error("Preprocessor: ", "Output file already exists.");
 		return 0;
 	}
