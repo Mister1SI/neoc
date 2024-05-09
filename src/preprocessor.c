@@ -8,14 +8,12 @@ static void reset();
 
 static int com_sl;
 static int com_ml;
-static int rep_char = 0;	// The character to replace comments with
-
-
 
 #include <stdio.h>
 #include <ANSI-colors.h>
 #include <unistd.h>
 #include <error.h>
+#include <stdio.h>
 
 int preprocessor(char* filedata, long filelen, char* output_filename) {
 
@@ -53,26 +51,30 @@ int preprocessor(char* filedata, long filelen, char* output_filename) {
 		// Single-line comments
 		if(!com_sl) {
 			if (*cb == '/' && *(cb+1) == '/') {
-					com_sl = 1;
-					// No call to fputc() because this char is a comment
+					com_sl = 1;		// Current character is a comment
+					continue;		// Skip to next iteration
 			}
 		} else {
-			// No call to fputc() because this char is a comment
+			if (*cb == '\n') {
+				com_sl = 0;
+			}	// No continue here so the newline is printed
+			continue;	// Continue because com_sl is true
 		}
 		// Multi-line comments
 		if(!com_ml) {
 			if (*cb == '/' && *(cb+1) == '*') {
 				com_ml = 1;
 				// No call to fputc() because this char is a comment
+				continue;
 			}
 		} else {
 			// First check for the end of the multiline comment
 			if (*cb == '*' && *(cb+1) == '/') {
 				com_ml = 0;
-				// No call to fputc() because this char and the next are comments
-			} else {
-				// No call to fputc() because this char is a comment
+				cb++;
+				continue;
 			}
+			continue;
 		}
 
 		fputc(*cb, file);
