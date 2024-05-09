@@ -51,33 +51,31 @@ int preprocessor(char* filedata, long filelen, char* output_filename) {
 		// Single-line comments
 		if(!com_sl) {
 			if (*cb == '/' && *(cb+1) == '/') {
-					com_sl = 1;		// Current character is a comment
-					continue;		// Skip to next iteration
+					com_sl = 1;
+					*cb = rep_char;
 			}
 		} else {
-			if (*cb == '\n') {
-				com_sl = 0;
-			}	// No continue here so the newline is printed
-			continue;	// Continue because com_sl is true
+			*cb = rep_char;
 		}
+
 		// Multi-line comments
 		if(!com_ml) {
 			if (*cb == '/' && *(cb+1) == '*') {
 				com_ml = 1;
-				// No call to fputc() because this char is a comment
-				continue;
+				*cb = rep_char;
 			}
 		} else {
 			// First check for the end of the multiline comment
 			if (*cb == '*' && *(cb+1) == '/') {
 				com_ml = 0;
-				cb++;
-				continue;
+				*cb = rep_char;
+				*(cb+1) = rep_char;
+			} else {
+				*cb = rep_char;
 			}
 			continue;
 		}
 
-		fputc(*cb, file);
 		// Increment the byte pointer
 		cb++;
 	}
