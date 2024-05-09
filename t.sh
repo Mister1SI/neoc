@@ -1,6 +1,6 @@
 
-cp test.txt test
-./x test
-cat test
-rm test
+cp test.txt test.tst
+./x test.tst
+cat test.pof
+rm test.pof test.tst
 
