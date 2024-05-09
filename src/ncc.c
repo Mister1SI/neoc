@@ -25,10 +25,22 @@ int ncc(char* filename) {
 
 	// Create the .pp preprocessed file's name
 	int filename_len = strlen(filename);
+	int ofilename_len = filename_len;
+	int last_period_index;
+	// Recursively check to find a file extension
+	for (int i=filename_len-1;i>-1;i--) {
+		last_period_index = -1;
+		char cb = filename[i];
+		if (cb == '.') {
+			last_period_index = i;
+			goto last_period_index_found;
+		}
+	}
+	last_period_index_found:
+	int ext_len = filename_len - last_period_index;
 	char* output_filename = malloc(filename_len);
 	memcpy(output_filename, filename, filename_len);
-	output_filename[filename_len-1] = 'p';
-	output_filename[filename_len-2] = 'p';
+	
 
 	// Get file length
 	struct stat st;
