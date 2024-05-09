@@ -54,29 +54,28 @@ int preprocessor(char* filedata, long filelen, char* output_filename) {
 		if(!com_sl) {
 			if (*cb == '/' && *(cb+1) == '/') {
 					com_sl = 1;
-					*cb = rep_char;
+					// No call to fputc() because this char is a comment
 			}
 		} else {
-			*cb = rep_char;
+			// No call to fputc() because this char is a comment
 		}
-
 		// Multi-line comments
 		if(!com_ml) {
 			if (*cb == '/' && *(cb+1) == '*') {
 				com_ml = 1;
-				*cb = rep_char;
+				// No call to fputc() because this char is a comment
 			}
 		} else {
 			// First check for the end of the multiline comment
 			if (*cb == '*' && *(cb+1) == '/') {
 				com_ml = 0;
-				*cb = rep_char;
-				*(cb+1) = rep_char;
+				// No call to fputc() because this char and the next are comments
 			} else {
-				*cb = rep_char;
+				// No call to fputc() because this char is a comment
 			}
 		}
 
+		fputc(*cb, file);
 		// Increment the byte pointer
 		cb++;
 	}
