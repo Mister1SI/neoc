@@ -1,7 +1,7 @@
 // This file contains the entry point and help function
 // It reads the arguments and invokes the compiler for each one
-// TODO: invoke linkerwith resultant object files
-//
+// TODO: invoke linker with resultant object files
+
 
 #include <stdio.h>
 
@@ -32,26 +32,17 @@ void print_tok(Token t) {
 
 int main(int argc, char **argv) {
 
-    // if (argc == 1) {
-    // 	help();
-    // 	return 0;
-    // }
-    //
-    // for (int i=1; i<argc; i++) {
-    // 	if(!ncc(argv[i])) {
-    // 		puts("Compilation failed.");
-    // 		return -1;
-    // 	}
-    // }
-
-    const char expr[] = "apple + bananana- cheese";
-    Lexer l = new_lexer(expr, sizeof expr - 1);
-    Token t = {0};
-    while (t.type != END_OF_FILE) {
-        t = lex_next_token(&l);
-        print_tok(t);
+    if (argc == 1) {
+		help();
+     	return 0;
     }
-
+    
+    for (int i=1; i<argc; i++) {
+    	if(!ncc(argv[i])) {
+     		puts("Compilation failed.");
+     		return -1;
+     	}
+     }
     return 0;
 }
 
