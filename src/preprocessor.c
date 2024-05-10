@@ -33,7 +33,42 @@ int preprocessor(char* filedata, long filelen, char* output_filename) {
 }
 
 char* read_line(char* line, int len, int* out_len) {
-
+	int olen = 0;
+	char* obuf = malloc(len);
+	for (int i=0;i<len;i++) {
+		char cb = line[i];
+		if (!com_sl && !com_ml) {
+			if (cb == '/') {
+				if (line[i+1] == '/') {
+					com_sl = 1;
+					continue;
+				}
+				if (line[i+1] == '*') {
+					com_ml = 1;
+					continue;
+				}
+				olen++;
+			} else {
+				olen++;
+			}
+		}
+		else if (com_sl) {
+			if (cb == '\n') {
+				com_sl = 0;
+				obuf[olen] = 'n'
+			}	// else don't do anything because of the single line comment
+		} else if (com_ml) {
+			if (cb == '*' && line[i+1] == '/') {
+				com_ml = 0;
+				i++;
+			}
+		} else {
+			// Some weird condition arose
+			ncc_error("Preprocessor: ", "Invalid state: inside both single- and multi-line comments.");
+		}
+	}
+	*out_len = olen;
+	return obuf;
 }
 
 void reset() {
